@@ -82,3 +82,29 @@ Resources:
                     ForAllValues:StringEquals:
                       aws:TagKeys:
                       - aws-glue-service-resource
+
+    GlueLakeFormationPermissionsRawData:
+      Type: AWS::LakeFormation::Permissions
+      Properties:
+        DataLakePrincipal:
+          DataLakePrincipalIdentifier: !GetAtt GlueIAMRole.Arn
+        Resource:
+          DatabaseResource:
+            Name: raw_data
+        Permissions:
+          - DESCRIBE
+          - CREATE_TABLE
+          - ALTER
+
+    GlueLakeFormationPermissionsProcessedData:
+      Type: AWS::LakeFormation::Permissions
+      Properties:
+        DataLakePrincipal:
+          DataLakePrincipalIdentifier: !GetAtt GlueIAMRole.Arn
+        Resource:
+          DatabaseResource:
+            Name: processed_data
+        Permissions:
+          - DESCRIBE
+          - CREATE_TABLE
+          - ALTER
