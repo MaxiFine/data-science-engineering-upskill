@@ -123,4 +123,18 @@ Data Validataion[ Ensures data is acurate, consistent and meets predefined crite
 - The metadata definition that represents your data. The data resides in its original store. This is just a representation of the schema.
 
 ## AWS GLUE CRAWLERS
- A Crawler is a program that connects to a data store (source or target), progresses through a prioritized list of classifiers to determine the schema for your data, and then creates metadata tables in the AWS Glue Data Catalog
+ A Crawler is a program that connects to a data store (source or target), progresses through a prioritized list of classifiers to determine the schema for your data, and then creates metadata tables in the AWS Glue Data Catalog.
+
+ # PARTITIONING
+- Folders where data is stored on s3, which are physical entities, are mapped to partitions, which are logical entities ie. Culumns in the glue table.
+
+
+# GLUE CONNECTIONS
+- A Data Catalog object that contains the properties that are required to connect to a particular data store.
+
+# GLUE ETL
+-Supports extracting data from various sources, transform it to meet your business needs and loading it into a destination of your choice. 
+
+## GLUE BOOKMARKS
+Tracks data that has already been processed during a previous run of an ETL job by persisting state information from a previous job.
+
