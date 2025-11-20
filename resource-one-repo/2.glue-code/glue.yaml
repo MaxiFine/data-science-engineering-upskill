@@ -96,6 +96,11 @@ Resources:
           - DESCRIBE
           - CREATE_TABLE
           - ALTER
+          - DROP
+          - DELETE
+          - INSERT
+          - SELECT
+          - UPDATE
 
     GlueLakeFormationPermissionsProcessedData:
       Type: AWS::LakeFormation::Permissions
@@ -109,3 +114,9 @@ Resources:
           - DESCRIBE
           - CREATE_TABLE
           - ALTER
+          - DROP
+          - DELETE
+          - INSERT
+          - SELECT
+          - UPDATE
+          
