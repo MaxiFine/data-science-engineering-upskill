@@ -93,42 +93,42 @@ Resources:
 
     # The Lake Formation Permissions for the Glue IAM Role
   # the error was fixed when I added these permissions to the databases
-    GlueLakeFormationPermissionsRawData:
-      Type: AWS::LakeFormation::Permissions
-      Properties:
-        DataLakePrincipal:
-          DataLakePrincipalIdentifier: !GetAtt GlueIAMRole.Arn
-        Resource:
-          DatabaseResource:
-            Name: raw_data
-        Permissions:
-          - DESCRIBE
-          - CREATE_TABLE
-          - ALTER
-          - DROP
-          - DELETE
-          - INSERT
-          - SELECT
-          - UPDATE
+  GlueLakeFormationPermissionsRawData:
+    Type: AWS::LakeFormation::Permissions
+    Properties:
+      DataLakePrincipal:
+        DataLakePrincipalIdentifier: !GetAtt GlueIAMRole.Arn
+      Resource:
+        DatabaseResource:
+          Name: raw_data
+      Permissions:
+        - DESCRIBE
+        - CREATE_TABLE
+        - ALTER
+        - DROP
+        - DELETE
+        - INSERT
+        - SELECT
+        - UPDATE
 
-    GlueLakeFormationPermissionsProcessedData:
-      Type: AWS::LakeFormation::Permissions
-      Properties:
-        DataLakePrincipal:
-          DataLakePrincipalIdentifier: !GetAtt GlueIAMRole.Arn
-        Resource:
-          DatabaseResource:
-            Name: processed_data
-        Permissions:
-          - DESCRIBE
-          - CREATE_TABLE
-          - ALTER
-          - DROP
-          - DELETE
-          - INSERT
-          - SELECT
-          - UPDATE
-          
+  GlueLakeFormationPermissionsProcessedData:
+    Type: AWS::LakeFormation::Permissions
+    Properties:
+      DataLakePrincipal:
+        DataLakePrincipalIdentifier: !GetAtt GlueIAMRole.Arn
+      Resource:
+        DatabaseResource:
+          Name: processed_data
+      Permissions:
+        - DESCRIBE
+        - CREATE_TABLE
+        - ALTER
+        - DROP
+        - DELETE
+        - INSERT
+        - SELECT
+        - UPDATE
+        
                     
   MyAthenaWorkGroup:
     Type: AWS::Athena::WorkGroup
