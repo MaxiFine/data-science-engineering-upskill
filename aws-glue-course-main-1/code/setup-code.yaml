@@ -143,6 +143,7 @@ Resources:
         RequesterPaysEnabled: true
         ResultConfiguration:
           OutputLocation: !Sub s3://${S3BucketForAWSGlueCourse}/athena
+          
 Outputs:
   S3Bucket:
     Description: A reference to the created S3 bucket
