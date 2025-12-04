@@ -56,6 +56,9 @@ the communication you craft is on point.
 visual cues is via a heatmap.
 - **Line graphs** are most commonly used to plot continuous data.
 - **Slopegraphs** can be useful when you have two time periods or points of comparison and want to quickly show relative increases and decreases or differences across various categories between the two data points.
-- **Bar** charts should be leveraged because they are common, as this means less of a learning curve for your audience. [Zero baseline and Non-zero baseline.]
+- **Bar** charts should be leveraged because they are common, as this means less of a learning curve for your audience. [**Zero baseline and Non-zero baseline.**]
 - The **waterfall chart** can be used to pull apart the pieces of a stacked bar chart to focus on one at a time, or to show a starting point, increases and decreases, and the resulting ending point.
-- Stacked horizontal bar charts can be used to show the totals across different categories but also give a sense of the subcomponent pieces. They can be structured to show either absolute values or sum to 100%.
+- **Stacked horizontal** bar charts can be used to show the totals across different categories but also give a sense of the subcomponent pieces. They can be structured to show either absolute values or sum to 100%.
+- **Stacked vertical bar chart** Use cases for stacked vertical bar charts are more limited. They are meant to allow you to compare totals across categories and also see the subcomponent pieces within a given category.
+- **Stacked horizontal bar chart** Similar to the stacked vertical bar chart, stacked horizontal bar charts can be used to show the totals across different categories but also give a sense of the subcomponent pieces.
+- **Area Graph** when you need to visualize numbers of vastly different magnitudes.
