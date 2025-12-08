@@ -62,3 +62,40 @@ visual cues is via a heatmap.
 - **Stacked vertical bar chart** Use cases for stacked vertical bar charts are more limited. They are meant to allow you to compare totals across categories and also see the subcomponent pieces within a given category.
 - **Stacked horizontal bar chart** Similar to the stacked vertical bar chart, stacked horizontal bar charts can be used to show the totals across different categories but also give a sense of the subcomponent pieces.
 - **Area Graph** when you need to visualize numbers of vastly different magnitudes.
+
+
+## CH 3
+
+**Clutter**
+One culprit that can contribute to excessive or extraneous cognitive load is something I
+refer to simply as clutter Because it makes our visuals appear more complicated than necessary.
+
+**The Gestalt Principle:** set out in the early 1900s to understand how individuals perceive order in the world around them.
+
+**Proximity**
+We tend to think of objects that are physically close together as belonging to part of a
+group. 
+
+**Similarity**
+Objects that are of similar color, shape, size, or orientation are perceived as related or
+belonging to part of a group. This can be leveraged in tables to help draw our audience’s eyes in the direction we want them to focus.
+
+**Enclosure**
+We think of objects that are physically enclosed together as belonging to part of a group.
+One way we can leverage the enclosure principle is to draw a visual distinction within our data
+
+**Closure**
+The closure concept says that people like things to be simple and to fit in the constructs
+that are already in our heads.
+
+**Continuity**
+The principle of continuity is similar to closure: when looking at objects, our eyes seek
+the smoothest path and naturally create continuity in what we see even where it may not
+explicitly exist.
+
+**Connection**
+The final Gestalt principle we’ll focus on is connection. We tend to think of objects that
+are physically connected as part of a group. One way that we frequently leverage the connection principle is in line graphs, to help our eyes see order in the data.
+**The Gestalt principles** help us understand how people see, which we can use to identify unnecessary elements and ease the processing of our visual communications.
+
+
