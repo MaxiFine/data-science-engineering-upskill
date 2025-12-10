@@ -240,24 +240,42 @@ Resources:
                     aws:TagKeys:
                     - aws-glue-service-resource
 
-  # The Lake Formation Permissions for the Glue IAM Role
-  # the error was fixed when I added these permissions to the databases
-  # GlueLakeFormationPermissionsRawData:
-  #   Type: AWS::LakeFormation::Permissions
-  #   Properties:
-  #     DataLakePrincipal:
-  #       DataLakePrincipalIdentifier: !GetAtt GlueIAMRolePowerBiConnection.Arn
-  #     Resource:
-  #       DatabaseResource:
-  #         Name: raw_data
-  #     Permissions:
-  #       - DESCRIBE
-  #       - CREATE_TABLE
-  #       - ALTER
-  #       - DROP
-  #       - DELETE
-  #       - INSERT
-  #       - SELECT
+  # Lake Formation Permissions for the Glue IAM Role
+  GlueLakeFormationPermissionsStudents:
+    Type: AWS::LakeFormation::Permissions
+    Properties:
+      DataLakePrincipal:
+        DataLakePrincipalIdentifier: !GetAtt GlueIAMRolePowerBiConnection.Arn
+      Resource:
+        DatabaseResource:
+          Name: students
+      Permissions:
+        - DESCRIBE
+        - CREATE_TABLE
+        - ALTER
+        - DROP
+        - DELETE
+        - INSERT
+        - SELECT
+        - UPDATE
+
+  # Uncomment these if you need permissions for other databases
+  GlueLakeFormationPermissionsRawData:
+    Type: AWS::LakeFormation::Permissions
+    Properties:
+      DataLakePrincipal:
+        DataLakePrincipalIdentifier: !GetAtt GlueIAMRolePowerBiConnection.Arn
+      Resource:
+        DatabaseResource:
+          Name: test_scores
+      Permissions:
+        - DESCRIBE
+        - CREATE_TABLE
+        - ALTER
+        - DROP
+        - DELETE
+        - INSERT
+        - SELECT
   #       - UPDATE
 
   # GlueLakeFormationPermissionsProcessedData:
