@@ -210,10 +210,10 @@ Resources:
                 Resource: 
                   - arn:aws:s3:::aws-glue-*/*
                   - arn:aws:s3:::*/*aws-glue-*/*
-                  - !GetAtt S3BucketForPowerBiBucket.Arn
+                  - !GetAtt S3BucketForPowerBiConnection.Arn
                   - !Join 
                     - ''
-                    - - !GetAtt S3BucketForPowerBiBucket.Arn
+                    - - !GetAtt S3BucketForPowerBiConnection.Arn
                       - /*
               - Effect: Allow
                 Action: 
@@ -296,4 +296,4 @@ Resources:
 Outputs:
   S3Bucket:
     Description: A reference to the created S3 bucket
-    Value: !Ref S3BucketForPowerBiBucket
+    Value: !Ref S3BucketForPowerBiConnection
