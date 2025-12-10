@@ -26,7 +26,7 @@
 # #         - Key: "powerBI"
 # #           Value: "Connecting Power BI to AWS Athena"
 
-#   GlueIAMRole:
+#   GlueIAMRolePowerBiConnection:
 #     Type: AWS::IAM::Role
 #     Properties: 
 #       RoleName: GlueAndAthenaDemoRole
@@ -137,11 +137,11 @@
 
 #   GlueIAMRoleName:
 #     Description: "The name of the IAM Role for AWS Glue"
-#     Value: !Ref GlueIAMRole
+#     Value: !Ref GlueIAMRolePowerBiConnection
 
 #   GlueIAMRoleARN:
 #     Description: "The ARN of the IAM Role for AWS Glue"
-#     Value: !GetAtt GlueIAMRole.Arn
+#     Value: !GetAtt GlueIAMRolePowerBiConnection.Arn
 
 #####################################################
 ## NEW VERSION WITHOUT S3 BUCKET CREATION OPTION ##
@@ -149,24 +149,24 @@
 
 Description:  This template deploys a se bucket and creates a Glue IAM service role of the AWS Glue Course by Johnny Chivers
 Parameters:
-  S3BucketForCourse: 
+  S3BucketForPowerBiConnection: 
     Description: Please enter the name for your S3 bucket. This will used throughout the "course" and must be unique globablly within AWS. 
     Type: String
     Default: powerbi-athena-glue-course-bucket
 
 Resources:
-  S3BucketForAWSGlueCourse:
+  S3BucketForPowerBiConnection:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Ref S3BucketForCourse
+      BucketName: !Ref S3BucketForPowerBiConnection
       Tags:
         - Key: "course"
           Value: "Connecting Power BI to AWS Athena"
 
-  GlueIAMRole:
+  GlueIAMRolePowerBiConnection:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: AWSGlueCourse
+      RoleName: AWSGluePowerBiConnectionRole
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -242,47 +242,47 @@ Resources:
 
     # The Lake Formation Permissions for the Glue IAM Role
   # the error was fixed when I added these permissions to the databases
-  GlueLakeFormationPermissionsRawData:
-    Type: AWS::LakeFormation::Permissions
-    Properties:
-      DataLakePrincipal:
-        DataLakePrincipalIdentifier: !GetAtt GlueIAMRole.Arn
-      Resource:
-        DatabaseResource:
-          Name: raw_data
-      Permissions:
-        - DESCRIBE
-        - CREATE_TABLE
-        - ALTER
-        - DROP
-        - DELETE
-        - INSERT
-        - SELECT
+  # GlueLakeFormationPermissionsRawData:
+  #   Type: AWS::LakeFormation::Permissions
+  #   Properties:
+  #     DataLakePrincipal:
+  #       DataLakePrincipalIdentifier: !GetAtt GlueIAMRolePowerBiConnection.Arn
+  #     Resource:
+  #       DatabaseResource:
+  #         Name: raw_data
+  #     Permissions:
+  #       - DESCRIBE
+  #       - CREATE_TABLE
+  #       - ALTER
+  #       - DROP
+  #       - DELETE
+  #       - INSERT
+  #       - SELECT
         - UPDATE
 
-  GlueLakeFormationPermissionsProcessedData:
-    Type: AWS::LakeFormation::Permissions
-    Properties:
-      DataLakePrincipal:
-        DataLakePrincipalIdentifier: !GetAtt GlueIAMRole.Arn
-      Resource:
-        DatabaseResource:
-          Name: processed_data
-      Permissions:
-        - DESCRIBE
-        - CREATE_TABLE
-        - ALTER
-        - DROP
-        - DELETE
-        - INSERT
-        - SELECT
-        - UPDATE
+  # GlueLakeFormationPermissionsProcessedData:
+  #   Type: AWS::LakeFormation::Permissions
+  #   Properties:
+  #     DataLakePrincipal:
+  #       DataLakePrincipalIdentifier: !GetAtt GlueIAMRolePowerBiConnection.Arn
+  #     Resource:
+  #       DatabaseResource:
+  #         Name: processed_data
+  #     Permissions:
+  #       - DESCRIBE
+  #       - CREATE_TABLE
+  #       - ALTER
+  #       - DROP
+  #       - DELETE
+  #       - INSERT
+  #       - SELECT
+  #       - UPDATE
         
                     
   MyAthenaWorkGroup:
     Type: AWS::Athena::WorkGroup
     Properties:
-      Name: AWSGlueCourseAthenaWorkgroup
+      Name: AWSGluePowerBiConnectionAthenaWorkgroup
       Description: The workgroup for the johnny chivers aws glue course. 
       State: ENABLED
       WorkGroupConfiguration:
