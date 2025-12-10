@@ -5,26 +5,26 @@ Parameters:
     Type: String
     Default: glue-de-demo-bucket
   
-  CreateS3Bucket:
-    Description: Set to 'false' if the bucket already exists, 'true' to create a new bucket
-    Type: String
-    Default: 'true'
-    AllowedValues:
-      - 'true'
-      - 'false'
+#   CreateS3Bucket:
+#     Description: Set to 'false' if the bucket already exists, 'true' to create a new bucket
+#     Type: String
+#     Default: 'true'
+#     AllowedValues:
+#       - 'true'
+#       - 'false'
 
-Conditions:
-  ShouldCreateBucket: !Equals [!Ref CreateS3Bucket, 'true']
+# Conditions:
+#   ShouldCreateBucket: !Equals [!Ref CreateS3Bucket, 'true']
 
-Resources:
-  S3BucketForAWSGlueCourse:
-    Type: AWS::S3::Bucket
-    Condition: ShouldCreateBucket
-    Properties:
-      BucketName: !Ref S3BucketForGlueAndAthenaDemo
-      Tags:
-        - Key: "powerBI"
-          Value: "Connecting Power BI to AWS Athena"
+# Resources:
+#   S3BucketForAWSGlueCourse:
+#     Type: AWS::S3::Bucket
+#     Condition: ShouldCreateBucket
+#     Properties:
+#       BucketName: !Ref S3BucketForGlueAndAthenaDemo
+#       Tags:
+#         - Key: "powerBI"
+#           Value: "Connecting Power BI to AWS Athena"
 
   GlueIAMRole:
     Type: AWS::IAM::Role
