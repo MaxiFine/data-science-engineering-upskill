@@ -240,7 +240,7 @@ Resources:
                     aws:TagKeys:
                     - aws-glue-service-resource
 
-    # The Lake Formation Permissions for the Glue IAM Role
+  # The Lake Formation Permissions for the Glue IAM Role
   # the error was fixed when I added these permissions to the databases
   # GlueLakeFormationPermissionsRawData:
   #   Type: AWS::LakeFormation::Permissions
@@ -258,7 +258,7 @@ Resources:
   #       - DELETE
   #       - INSERT
   #       - SELECT
-        - UPDATE
+  #       - UPDATE
 
   # GlueLakeFormationPermissionsProcessedData:
   #   Type: AWS::LakeFormation::Permissions
