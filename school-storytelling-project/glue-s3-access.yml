@@ -152,7 +152,7 @@ Parameters:
   S3BucketForCourse: 
     Description: Please enter the name for your S3 bucket. This will used throughout the "course" and must be unique globablly within AWS. 
     Type: String
-    Default: mx-aws-glue-course-
+    Default: powerbi-athena-glue-course-bucket
 
 Resources:
   S3BucketForAWSGlueCourse:
