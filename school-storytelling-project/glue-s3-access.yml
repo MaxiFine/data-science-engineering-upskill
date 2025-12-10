@@ -1,35 +1,172 @@
+# Description:  This template deploys a se bucket and creates a Glue IAM service role of the AWS Glue Course by Johnny Chivers
+# Parameters:
+#   S3BucketForGlueAndAthenaDemo: 
+#     Description: Please enter the name for your S3 bucket. This will used throughout the "course" and must be unique globablly within AWS. 
+#     Type: String
+#     Default: glue-de-demo-bucket
+  
+# #   CreateS3Bucket:
+# #     Description: Set to 'false' if the bucket already exists, 'true' to create a new bucket
+# #     Type: String
+# #     Default: 'true'
+# #     AllowedValues:
+# #       - 'true'
+# #       - 'false'
+
+# # Conditions:
+# #   ShouldCreateBucket: !Equals [!Ref CreateS3Bucket, 'true']
+
+# # Resources:
+# #   S3BucketForAWSGlueCourse:
+# #     Type: AWS::S3::Bucket
+# #     Condition: ShouldCreateBucket
+# #     Properties:
+# #       BucketName: !Ref S3BucketForGlueAndAthenaDemo
+# #       Tags:
+# #         - Key: "powerBI"
+# #           Value: "Connecting Power BI to AWS Athena"
+
+#   GlueIAMRole:
+#     Type: AWS::IAM::Role
+#     Properties: 
+#       RoleName: GlueAndAthenaDemoRole
+#       AssumeRolePolicyDocument:
+#         Version: "2012-10-17"
+#         Statement:
+#           - Effect: Allow
+#             Principal:
+#               Service:
+#                 - glue.amazonaws.com
+#             Action:
+#               - sts:AssumeRole
+#       Policies:
+#         - PolicyName: GlueAndAthenaDemoServicePolicy
+#           PolicyDocument:
+#             Version: "2012-10-17"
+#             Statement:
+#               - Effect: Allow
+#                 Action:
+#                   - glue:*
+#                   - lakeformation:*
+#                   - s3:GetBucketLocation
+#                   - s3:ListBucket
+#                   - s3:ListAllMyBuckets
+#                   - s3:GetBucketAcl
+#                   - ec2:DescribeVpcEndpoints
+#                   - ec2:DescribeRouteTables
+#                   - ec2:CreateNetworkInterface
+#                   - ec2:DeleteNetworkInterface
+#                   - ec2:DescribeNetworkInterfaces
+#                   - ec2:DescribeSecurityGroups
+#                   - ec2:DescribeSubnets
+#                   - ec2:DescribeVpcAttribute
+#                   - iam:ListRolePolicies
+#                   - iam:GetRole
+#                   - iam:GetRolePolicy
+#                   - cloudwatch:PutMetricData
+#                 Resource: "*"
+#               - Effect: Allow
+#                 Action: 
+#                   - s3:GetObject
+#                   - s3:PutObject
+#                   - s3:DeleteObject
+#                 Resource: 
+#                   - !Sub arn:aws:s3:::${S3BucketForGlueAndAthenaDemo}/*
+#                   - arn:aws:s3:::aws-glue-*/*
+#                   - arn:aws:s3:::*/*aws-glue-*/*
+#                   - !If 
+#                     - ShouldCreateBucket
+#                     - !GetAtt S3BucketForAWSGlueCourse.Arn
+#                     - !Sub arn:aws:s3:::${S3BucketForGlueAndAthenaDemo}
+#                   - !If 
+#                     - ShouldCreateBucket
+#                     - !Join ['', [!GetAtt S3BucketForAWSGlueCourse.Arn, /*]]
+#                     - !Sub arn:aws:s3:::${S3BucketForGlueAndAthenaDemo}/*
+#               - Effect: Allow
+#                 Action:
+#                   - s3:GetObject
+#                 Resource:
+#                   - arn:aws:s3:::crawler-public*
+#                   - arn:aws:s3:::aws-glue-*
+
+#               - Effect: Allow
+#                 Action:
+#                   - athena:StartQueryExecution
+#                   - athena:GetQueryExecution
+#                   - athena:GetQueryResults
+#                   - athena:ListWorkGroups
+#                 Resource: "*"
+#               - Effect: Allow
+#                 Action: 
+#                   - logs:CreateLogGroup
+#                   - logs:CreateLogStream
+#                   - logs:PutLogEvents
+#                 Resource: arn:aws:logs:*:*:*:/aws-glue/*
+#               - Effect: Allow
+#                 Action:
+#                   - ec2:CreateTags
+#                   - ec2:DeleteTags
+#                 Resource:
+#                   - arn:aws:ec2:*:*:network-interface/*
+#                   - arn:aws:ec2:*:*:security-group/*
+#                   - arn:aws:ec2:*:*:instance/*
+
+#   PowerBIAthenaWorkGroup:
+#     Type: AWS::Athena::WorkGroup
+#     Properties:
+#       Name: PowerBIAthenaWorkGroup
+#       Description: Workgroup for connecting Power BI to AWS Athena
+#       RecursiveDeleteOption: true
+#       State: ENABLED
+#       WorkGroupConfiguration:
+#         BytesScannedCutoffPerQuery: 2000000000
+#         EnforceWorkGroupConfiguration: false
+#         PublishCloudWatchMetricsEnabled: true
+#         RequesterPaysEnabled: false
+#         ResultConfiguration:
+#           OutputLocation: !Sub s3://${S3BucketForGlueAndAthenaDemo}/athena-query-results/
+#         # EnforceWorkGroupConfiguration: true
+
+# Outputs: 
+#   S3BucketForAWSGlueCourseName:
+#     Description: "The name of the S3 bucket for the AWS Glue Course"
+#     Value: !If 
+#       - ShouldCreateBucket
+#       - !Ref S3BucketForAWSGlueCourse
+#       - !Ref S3BucketForGlueAndAthenaDemo
+
+#   GlueIAMRoleName:
+#     Description: "The name of the IAM Role for AWS Glue"
+#     Value: !Ref GlueIAMRole
+
+#   GlueIAMRoleARN:
+#     Description: "The ARN of the IAM Role for AWS Glue"
+#     Value: !GetAtt GlueIAMRole.Arn
+
+#####################################################
+## NEW VERSION WITHOUT S3 BUCKET CREATION OPTION ##
+#####################################################
+
 Description:  This template deploys a se bucket and creates a Glue IAM service role of the AWS Glue Course by Johnny Chivers
 Parameters:
-  S3BucketForGlueAndAthenaDemo: 
+  S3BucketForCourse: 
     Description: Please enter the name for your S3 bucket. This will used throughout the "course" and must be unique globablly within AWS. 
     Type: String
-    Default: glue-de-demo-bucket
-  
-#   CreateS3Bucket:
-#     Description: Set to 'false' if the bucket already exists, 'true' to create a new bucket
-#     Type: String
-#     Default: 'true'
-#     AllowedValues:
-#       - 'true'
-#       - 'false'
+    Default: mx-aws-glue-course-
 
-# Conditions:
-#   ShouldCreateBucket: !Equals [!Ref CreateS3Bucket, 'true']
-
-# Resources:
-#   S3BucketForAWSGlueCourse:
-#     Type: AWS::S3::Bucket
-#     Condition: ShouldCreateBucket
-#     Properties:
-#       BucketName: !Ref S3BucketForGlueAndAthenaDemo
-#       Tags:
-#         - Key: "powerBI"
-#           Value: "Connecting Power BI to AWS Athena"
+Resources:
+  S3BucketForAWSGlueCourse:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref S3BucketForCourse
+      Tags:
+        - Key: "course"
+          Value: "Connecting Power BI to AWS Athena"
 
   GlueIAMRole:
     Type: AWS::IAM::Role
-    Properties: 
-      RoleName: GlueAndAthenaDemoRole
+    Properties:
+      RoleName: AWSGlueCourse
       AssumeRolePolicyDocument:
         Version: "2012-10-17"
         Statement:
@@ -40,7 +177,7 @@ Parameters:
             Action:
               - sts:AssumeRole
       Policies:
-        - PolicyName: GlueAndAthenaDemoServicePolicy
+        - PolicyName: AWSGlueCourseServicePolicy
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
@@ -71,75 +208,92 @@ Parameters:
                   - s3:PutObject
                   - s3:DeleteObject
                 Resource: 
-                  - !Sub arn:aws:s3:::${S3BucketForGlueAndAthenaDemo}/*
                   - arn:aws:s3:::aws-glue-*/*
                   - arn:aws:s3:::*/*aws-glue-*/*
-                  - !If 
-                    - ShouldCreateBucket
-                    - !GetAtt S3BucketForAWSGlueCourse.Arn
-                    - !Sub arn:aws:s3:::${S3BucketForGlueAndAthenaDemo}
-                  - !If 
-                    - ShouldCreateBucket
-                    - !Join ['', [!GetAtt S3BucketForAWSGlueCourse.Arn, /*]]
-                    - !Sub arn:aws:s3:::${S3BucketForGlueAndAthenaDemo}/*
+                  - !GetAtt S3BucketForAWSGlueCourse.Arn
+                  - !Join 
+                    - ''
+                    - - !GetAtt S3BucketForAWSGlueCourse.Arn
+                      - /*
               - Effect: Allow
-                Action:
+                Action: 
                   - s3:GetObject
-                Resource:
+                Resource: 
                   - arn:aws:s3:::crawler-public*
                   - arn:aws:s3:::aws-glue-*
-
-              - Effect: Allow
-                Action:
-                  - athena:StartQueryExecution
-                  - athena:GetQueryExecution
-                  - athena:GetQueryResults
-                  - athena:ListWorkGroups
-                Resource: "*"
-              - Effect: Allow
+              - Effect: Allow 
                 Action: 
                   - logs:CreateLogGroup
                   - logs:CreateLogStream
                   - logs:PutLogEvents
                 Resource: arn:aws:logs:*:*:*:/aws-glue/*
               - Effect: Allow
-                Action:
+                Action: 
                   - ec2:CreateTags
                   - ec2:DeleteTags
-                Resource:
+                Resource: 
                   - arn:aws:ec2:*:*:network-interface/*
                   - arn:aws:ec2:*:*:security-group/*
                   - arn:aws:ec2:*:*:instance/*
+                Condition: 
+                  ForAllValues:StringEquals:
+                    aws:TagKeys:
+                    - aws-glue-service-resource
 
-  PowerBIAthenaWorkGroup:
+    # The Lake Formation Permissions for the Glue IAM Role
+  # the error was fixed when I added these permissions to the databases
+  GlueLakeFormationPermissionsRawData:
+    Type: AWS::LakeFormation::Permissions
+    Properties:
+      DataLakePrincipal:
+        DataLakePrincipalIdentifier: !GetAtt GlueIAMRole.Arn
+      Resource:
+        DatabaseResource:
+          Name: raw_data
+      Permissions:
+        - DESCRIBE
+        - CREATE_TABLE
+        - ALTER
+        - DROP
+        - DELETE
+        - INSERT
+        - SELECT
+        - UPDATE
+
+  GlueLakeFormationPermissionsProcessedData:
+    Type: AWS::LakeFormation::Permissions
+    Properties:
+      DataLakePrincipal:
+        DataLakePrincipalIdentifier: !GetAtt GlueIAMRole.Arn
+      Resource:
+        DatabaseResource:
+          Name: processed_data
+      Permissions:
+        - DESCRIBE
+        - CREATE_TABLE
+        - ALTER
+        - DROP
+        - DELETE
+        - INSERT
+        - SELECT
+        - UPDATE
+        
+                    
+  MyAthenaWorkGroup:
     Type: AWS::Athena::WorkGroup
     Properties:
-      Name: PowerBIAthenaWorkGroup
-      Description: Workgroup for connecting Power BI to AWS Athena
-      RecursiveDeleteOption: true
+      Name: AWSGlueCourseAthenaWorkgroup
+      Description: The workgroup for the johnny chivers aws glue course. 
       State: ENABLED
       WorkGroupConfiguration:
-        BytesScannedCutoffPerQuery: 2000000000
+        BytesScannedCutoffPerQuery: 200000000
         EnforceWorkGroupConfiguration: false
-        PublishCloudWatchMetricsEnabled: true
-        RequesterPaysEnabled: false
+        PublishCloudWatchMetricsEnabled: false
+        RequesterPaysEnabled: true
         ResultConfiguration:
-          OutputLocation: !Sub s3://${S3BucketForGlueAndAthenaDemo}/athena-query-results/
-        # EnforceWorkGroupConfiguration: true
-
-Outputs: 
-  S3BucketForAWSGlueCourseName:
-    Description: "The name of the S3 bucket for the AWS Glue Course"
-    Value: !If 
-      - ShouldCreateBucket
-      - !Ref S3BucketForAWSGlueCourse
-      - !Ref S3BucketForGlueAndAthenaDemo
-
-  GlueIAMRoleName:
-    Description: "The name of the IAM Role for AWS Glue"
-    Value: !Ref GlueIAMRole
-
-  GlueIAMRoleARN:
-    Description: "The ARN of the IAM Role for AWS Glue"
-    Value: !GetAtt GlueIAMRole.Arn
-
+          OutputLocation: !Sub s3://${S3BucketForAWSGlueCourse}/athena
+          
+Outputs:
+  S3Bucket:
+    Description: A reference to the created S3 bucket
+    Value: !Ref S3BucketForAWSGlueCourse
