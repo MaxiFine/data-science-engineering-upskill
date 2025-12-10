@@ -149,7 +149,7 @@
 
 Description:  This template deploys a se bucket and creates a Glue IAM service role of the AWS Glue Course by Johnny Chivers
 Parameters:
-  S3BucketForPowerBiConnection: 
+  S3BucketForPowerBiBucket: 
     Description: Please enter the name for your S3 bucket. This will used throughout the "course" and must be unique globablly within AWS. 
     Type: String
     Default: powerbi-athena-glue-course-bucket
@@ -158,7 +158,7 @@ Resources:
   S3BucketForPowerBiConnection:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Ref S3BucketForPowerBiConnection
+      BucketName: !Ref S3BucketForPowerBiBucket
       Tags:
         - Key: "course"
           Value: "Connecting Power BI to AWS Athena"
@@ -210,10 +210,10 @@ Resources:
                 Resource: 
                   - arn:aws:s3:::aws-glue-*/*
                   - arn:aws:s3:::*/*aws-glue-*/*
-                  - !GetAtt S3BucketForAWSGlueCourse.Arn
+                  - !GetAtt S3BucketForPowerBiBucket.Arn
                   - !Join 
                     - ''
-                    - - !GetAtt S3BucketForAWSGlueCourse.Arn
+                    - - !GetAtt S3BucketForPowerBiBucket.Arn
                       - /*
               - Effect: Allow
                 Action: 
@@ -291,9 +291,9 @@ Resources:
         PublishCloudWatchMetricsEnabled: false
         RequesterPaysEnabled: true
         ResultConfiguration:
-          OutputLocation: !Sub s3://${S3BucketForAWSGlueCourse}/athena
+          OutputLocation: !Sub s3://${S3BucketForPowerBiBucket}/athena
           
 Outputs:
   S3Bucket:
     Description: A reference to the created S3 bucket
-    Value: !Ref S3BucketForAWSGlueCourse
+    Value: !Ref S3BucketForPowerBiBucket
