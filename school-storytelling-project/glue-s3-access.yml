@@ -4,10 +4,22 @@ Parameters:
     Description: Please enter the name for your S3 bucket. This will used throughout the "course" and must be unique globablly within AWS. 
     Type: String
     Default: glue-de-demo-bucket
+  
+  CreateS3Bucket:
+    Description: Set to 'false' if the bucket already exists, 'true' to create a new bucket
+    Type: String
+    Default: 'true'
+    AllowedValues:
+      - 'true'
+      - 'false'
+
+Conditions:
+  ShouldCreateBucket: !Equals [!Ref CreateS3Bucket, 'true']
 
 Resources:
   S3BucketForAWSGlueCourse:
     Type: AWS::S3::Bucket
+    Condition: ShouldCreateBucket
     Properties:
       BucketName: !Ref S3BucketForGlueAndAthenaDemo
       Tags:
@@ -62,11 +74,14 @@ Resources:
                   - !Sub arn:aws:s3:::${S3BucketForGlueAndAthenaDemo}/*
                   - arn:aws:s3:::aws-glue-*/*
                   - arn:aws:s3:::*/*aws-glue-*/*
-                  - !GetAtt S3BucketForAWSGlueCourse.Arn
-                  - !Join 
-                    - ''
-                    - - !GetAtt S3BucketForAWSGlueCourse.Arn
-                      - /*
+                  - !If 
+                    - ShouldCreateBucket
+                    - !GetAtt S3BucketForAWSGlueCourse.Arn
+                    - !Sub arn:aws:s3:::${S3BucketForGlueAndAthenaDemo}
+                  - !If 
+                    - ShouldCreateBucket
+                    - !Join ['', [!GetAtt S3BucketForAWSGlueCourse.Arn, /*]]
+                    - !Sub arn:aws:s3:::${S3BucketForGlueAndAthenaDemo}/*
               - Effect: Allow
                 Action:
                   - s3:GetObject
@@ -115,7 +130,10 @@ Resources:
 Outputs: 
   S3BucketForAWSGlueCourseName:
     Description: "The name of the S3 bucket for the AWS Glue Course"
-    Value: !Ref S3BucketForAWSGlueCourse
+    Value: !If 
+      - ShouldCreateBucket
+      - !Ref S3BucketForAWSGlueCourse
+      - !Ref S3BucketForGlueAndAthenaDemo
 
   GlueIAMRoleName:
     Description: "The name of the IAM Role for AWS Glue"
