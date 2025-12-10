@@ -241,41 +241,43 @@ Resources:
                     - aws-glue-service-resource
 
   # Lake Formation Permissions for the Glue IAM Role
-  GlueLakeFormationPermissionsStudents:
-    Type: AWS::LakeFormation::Permissions
-    Properties:
-      DataLakePrincipal:
-        DataLakePrincipalIdentifier: !GetAtt GlueIAMRolePowerBiConnection.Arn
-      Resource:
-        DatabaseResource:
-          Name: students
-      Permissions:
-        - DESCRIBE
-        - CREATE_TABLE
-        - ALTER
-        - DROP
-        - DELETE
-        - INSERT
-        - SELECT
-        - UPDATE
+  # NOTE: These need to be granted manually if your IAM user doesn't have Lake Formation admin permissions
+  # Uncomment these resources only if your IAM user/role has Lake Formation admin access
+  
+  # GlueLakeFormationPermissionsStudents:
+  #   Type: AWS::LakeFormation::Permissions
+  #   Properties:
+  #     DataLakePrincipal:
+  #       DataLakePrincipalIdentifier: !GetAtt GlueIAMRolePowerBiConnection.Arn
+  #     Resource:
+  #       DatabaseResource:
+  #         Name: students
+  #     Permissions:
+  #       - DESCRIBE
+  #       - CREATE_TABLE
+  #       - ALTER
+  #       - DROP
+  #       - DELETE
+  #       - INSERT
+  #       - SELECT
+  #       - UPDATE
 
-  # Uncomment these if you need permissions for other databases
-  GlueLakeFormationPermissionsRawData:
-    Type: AWS::LakeFormation::Permissions
-    Properties:
-      DataLakePrincipal:
-        DataLakePrincipalIdentifier: !GetAtt GlueIAMRolePowerBiConnection.Arn
-      Resource:
-        DatabaseResource:
-          Name: test_scores
-      Permissions:
-        - DESCRIBE
-        - CREATE_TABLE
-        - ALTER
-        - DROP
-        - DELETE
-        - INSERT
-        - SELECT
+  # GlueLakeFormationPermissionsTestScores:
+  #   Type: AWS::LakeFormation::Permissions
+  #   Properties:
+  #     DataLakePrincipal:
+  #       DataLakePrincipalIdentifier: !GetAtt GlueIAMRolePowerBiConnection.Arn
+  #     Resource:
+  #       DatabaseResource:
+  #         Name: test_scores
+  #     Permissions:
+  #       - DESCRIBE
+  #       - CREATE_TABLE
+  #       - ALTER
+  #       - DROP
+  #       - DELETE
+  #       - INSERT
+  #       - SELECT
   #       - UPDATE
 
   # GlueLakeFormationPermissionsProcessedData:
