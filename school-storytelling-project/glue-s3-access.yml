@@ -96,4 +96,32 @@ Resources:
                   - arn:aws:ec2:*:*:security-group/*
                   - arn:aws:ec2:*:*:instance/*
 
-                  
+  PowerBIAthenaWorkGroup:
+    Type: AWS::Athena::WorkGroup
+    Properties:
+      Name: PowerBIAthenaWorkGroup
+      Description: Workgroup for connecting Power BI to AWS Athena
+      RecursiveDeleteOption: true
+      State: ENABLED
+      WorkGroupConfiguration:
+        BytesScannedCutoffPerQuery: 2000000000
+        EnforceWorkGroupConfiguration: false
+        PublishCloudWatchMetricsEnabled: true
+        RequesterPaysEnabled: false
+        ResultConfiguration:
+          OutputLocation: !Sub s3://${S3BucketForGlueAndAthenaDemo}/athena-query-results/
+        # EnforceWorkGroupConfiguration: true
+
+Outputs: 
+  S3BucketForAWSGlueCourseName:
+    Description: "The name of the S3 bucket for the AWS Glue Course"
+    Value: !Ref S3BucketForAWSGlueCourse
+
+  GlueIAMRoleName:
+    Description: "The name of the IAM Role for AWS Glue"
+    Value: !Ref GlueIAMRole
+
+  GlueIAMRoleARN:
+    Description: "The ARN of the IAM Role for AWS Glue"
+    Value: !GetAtt GlueIAMRole.Arn
+
