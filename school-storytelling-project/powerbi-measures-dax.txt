@@ -1,0 +1,55 @@
+// Power BI Measures for Financial data.csv
+// Model assumption: table name 'Financial'
+
+Total Sales = SUM('Financial'[Gross Sales])
+Total COGS = SUM('Financial'[COGS])
+Total Discounts = SUM('Financial'[Discounts])
+Total Profit = SUM('Financial'[Profit])
+Units = SUM('Financial'[Units Sold])
+
+Margin = [Total Sales] - [Total COGS] - [Total Discounts]
+Margin % = DIVIDE([Margin], [Total Sales])
+Discount % = DIVIDE([Total Discounts], [Total Sales])
+// Average Order Value proxy (per day) using Date granularity
+AOV = DIVIDE([Total Sales], DISTINCTCOUNT('Financial'[Date]))
+
+// Date table (create in Power BI):
+// Dates = CALENDAR(MIN('Financial'[Date]), MAX('Financial'[Date]))
+// Mark as Date table and relate 'Financial'[Date] -> 'Dates'[Date]
+// Helpful date attributes:
+// Date Attributes = ADDCOLUMNS(
+//   Dates,
+//   "Year", YEAR([Date]),
+//   "Month Number", MONTH([Date]),
+//   "Month Name", FORMAT([Date], "MMMM"),
+//   "Year-Month", FORMAT([Date], "YYYY-MM")
+// )
+
+Sales MTD = CALCULATE([Total Sales], DATESMTD('Dates'[Date]))
+Profit MTD = CALCULATE([Total Profit], DATESMTD('Dates'[Date]))
+Margin % MTD = CALCULATE([Margin %], DATESMTD('Dates'[Date]))
+
+Sales YTD = CALCULATE([Total Sales], DATESYTD('Dates'[Date]))
+Profit YTD = CALCULATE([Total Profit], DATESYTD('Dates'[Date]))
+Margin % YTD = CALCULATE([Margin %], DATESYTD('Dates'[Date]))
+
+Top Product Rank = RANKX(ALL('Financial'[Product]), [Total Profit], , DESC)
+Pareto Cum Profit = 
+    VAR CumProfit = 
+        CALCULATE([Total Profit], 
+            FILTER(ALL('Financial'[Product]), [Top Product Rank] <= MAX([Top Product Rank]))
+        )
+    VAR TotalProfitAll = CALCULATE([Total Profit], ALL('Financial'[Product]))
+    RETURN DIVIDE(CumProfit, TotalProfitAll)
+
+Revenue per Country = CALCULATE([Total Sales], ALLEXCEPT('Financial', 'Financial'[Country]))
+Profit per Country = CALCULATE([Total Profit], ALLEXCEPT('Financial', 'Financial'[Country]))
+Revenue per Segment = CALCULATE([Total Sales], ALLEXCEPT('Financial', 'Financial'[Segment]))
+Profit per Segment = CALCULATE([Total Profit], ALLEXCEPT('Financial', 'Financial'[Segment]))
+
+Price vs Units Elasticity Index = 
+    VAR Corr = 
+        CORREL('Financial'[Sale Price], 'Financial'[Units Sold])
+    RETURN Corr
+
+// Formatting suggestions: set display units to Thousands/Millions; percentage formats for Margin % and Discount %.
