@@ -47,7 +47,7 @@ the communication you craft is on point.
 
 ## CHAPTER 1
 
-**CHOOSING AN EFFECTIVE VISUAL*
+**CHOOSING AN EFFECTIVE VISUAL**
 
 - There are many different graphs and other types of visual displays of information, but a handful will work for the majority of your needs.
 - When you have just a number or two to share, *simple text* can be a great way to communicate.

@@ -31,3 +31,14 @@
 
 - Structured career path
 - Good career progress with mentorship
+
+**Solutions to Build the Graphs/Analytics**
+
+# Who are the stakeholders and why is this data important to them.
+
+- Scenario Amalitech Training Center
+They need to know the training that they're rending is having impact or not so this data is relevant because it shows the places that attention can be focused on to get more talents developed and utilized.
+**Graphs to draw for this question.**
+results of the training for the various states and outcome.
+which state have good scores out of the tests
+which students exceeded the score of 90% expected rate?
