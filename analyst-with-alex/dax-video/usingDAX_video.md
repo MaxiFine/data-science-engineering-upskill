@@ -9,3 +9,5 @@
 - GeneralProfit_Column = (SUM('Apocolypse Store'[Price]) - SUM('Apocolypse Store'[Production Cost])) * SUM('Apocolypse Sales'[Units Sold])
 
 - ProfitsOnEachProduct = Profits_by_Products_SUMx = SUMX('Apocolypse Sales', ('Apocolypse Store'[Price] - 'Apocolypse Store'[Production Cost]) * 'Apocolypse Sales'[Units Sold])
+
+- OrderSize = IF('Apocolypse Sales'[Units Sold]> 25, "Big Order", "Small Order")
