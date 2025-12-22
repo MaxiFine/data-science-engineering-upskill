@@ -4,5 +4,7 @@
 
 - CountOfSales = COUNT('Apocolypse Sales'[Order ID]) 
 
-- 
+## New Column on a new Table
+
+- ProfitsOnEachProduct = Profits_by_Products_SUMx = SUMX('Apocolypse Sales', ('Apocolypse Store'[Price] - 'Apocolypse Store'[Production Cost]) * 'Apocolypse Sales'[Units Sold])
 
