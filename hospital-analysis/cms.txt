@@ -1,0 +1,161 @@
+CMS - Centers for Medicare & Medicaid Services 
+
+Source: CMS Medicare Physician & Other Practitioners data • URL: https://data.cms.gov/provider-summary-by-type-of-service/medicare-physician-other-practitioners/medicare-physician-other-practitioners-by-provider-and-service/data 
+
+Overview = https://data.cms.gov/provider-summary-by-type-of-service/medicare-physician-other-practitioners/medicare-physician-other-practitioners-by-provider-and-service 
+
+ 
+
+🩺 Provider (Rendering Provider) Fields 
+
+Column Name 
+
+Full Name / Meaning 
+
+rndrng_npi 
+
+Rendering National Provider Identifier (NPI) – The unique 10-digit identifier assigned to the individual or organization that actually rendered the service. 
+
+rndrng_prvdr_last_org_name 
+
+Rendering Provider Last Name (or Organization Name) – The last name (if individual) or organization name (if group) of the provider who rendered the service. 
+
+rndrng_prvdr_first_name 
+
+Rendering Provider First Name – The first name of the individual provider. 
+
+rndrng_prvdr_mi 
+
+Rendering Provider Middle Initial – The middle initial of the individual provider’s name. 
+
+rndrng_prvdr_crdntls 
+
+Rendering Provider Credentials – The professional credentials of the provider (e.g., M.D., D.O., P.A., N.P.). 
+
+rndrng_prvdr_ent_cd 
+
+Rendering Provider Entity Code – Indicates whether the provider is an individual ("I") or an organization ("O"). 
+
+rndrng_prvdr_st1 
+
+Rendering Provider Street Address – Line 1 – First line of the provider’s practice location address. 
+
+rndrng_prvdr_st2 
+
+Rendering Provider Street Address – Line 2 – Second line of the provider’s practice location address (if any). 
+
+rndrng_prvdr_city 
+
+Rendering Provider City Name – City where the provider’s practice is located. 
+
+rndrng_prvdr_state_abrvtn 
+
+Rendering Provider State Abbreviation – Two-letter postal abbreviation for the provider’s state (e.g., MD, IL). 
+
+rndrng_prvdr_state_fips 
+
+Rendering Provider State FIPS Code – Federal Information Processing Standards (FIPS) numeric code for the provider’s state. 
+
+rndrng_prvdr_zip5 
+
+Rendering Provider ZIP Code (5-digit) – Five-digit ZIP code of the provider’s practice location. 
+
+rndrng_prvdr_ruca 
+
+Rendering Provider RUCA Code – Rural–Urban Commuting Area code indicating the provider’s geographic area type. 
+
+rndrng_prvdr_ruca_desc 
+
+Rendering Provider RUCA Description – Text description of the RUCA category (e.g., “Metropolitan area core”). 
+
+rndrng_prvdr_cntry 
+
+Rendering Provider Country Code – Country where the provider’s practice is located (typically “US”). 
+
+rndrng_prvdr_type 
+
+Rendering Provider Type/Specialty – The provider’s self-designated specialty or taxonomy (e.g., Hospitalist, Pathology). 
+
+rndrng_prvdr_mdcr_prtcptg_ind 
+
+Rendering Provider Medicare Participating Indicator – Indicates whether the provider participates in Medicare (“Y” = Yes, “N” = No). 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+ 
+
+🧾 Service and Procedure Fields 
+
+ 
+
+Column Name 
+
+Full Name / Meaning 
+
+hcpcs_cd 
+
+HCPCS Code (Healthcare Common Procedure Coding System) – Code representing the specific medical service or procedure performed. 
+
+hcpcs_desc 
+
+HCPCS Description – Text description of the HCPCS code (the name of the service/procedure). 
+
+hcpcs_drug_ind 
+
+HCPCS Drug Indicator – Indicates whether the HCPCS code describes a drug (“Y” = Yes, “N” = No). 
+
+place_of_srvc 
+
+Place of Service Code – Indicates the setting where the service was performed (e.g., “F” for Facility, “O” for Office). 
+
+ 
+
+ 
+
+👥 Utilization and Cost Metrics 
+
+ 
+
+Column Name 
+
+Full Name / Meaning 
+
+tot_benes 
+
+Total Beneficiaries – Number of unique Medicare beneficiaries who received the service. 
+
+tot_srvcs 
+
+Total Services – Total number of services/procedures performed. 
+
+tot_bene_day_srvcs 
+
+Total Beneficiary-Day Services – Total number of beneficiary-day combinations for the service. 
+
+avg_sbmtd_chrg 
+
+Average Submitted Charge Amount – Average dollar amount charged by the provider to Medicare for the service. 
+
+avg_mdcr_alowd_amt 
+
+Average Medicare Allowed Amount – Average amount approved by Medicare for the service (what Medicare deems reasonable). 
+
+avg_mdcr_pymt_amt 
+
+Average Medicare Payment Amount – Average amount Medicare actually paid to the provider. 
+
+avg_mdcr_stdzd_amt 
+
+Average Medicare Standardized Payment Amount – Average standardized payment adjusted for geographic cost differences. 
+
+ 

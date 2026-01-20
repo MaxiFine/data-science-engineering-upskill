@@ -1,0 +1,22 @@
+1. Total Medicare Spend (by Service / Provider)
+What it answers:
+“How much money is Medicare spending?”
+Definition:
+Total Medicare payments aggregated by:
+Provider
+Service (procedure)
+Region or place of service
+Business value:
+Identifies high-cost services
+Highlights top-spending providers
+Supports budgeting and cost containment discussions
+
+2. Average Cost per Service
+What it answers:
+“How expensive is a single service on average?”
+Definition:
+Medicare Payments ÷ Number of Services
+Business value:
+Enables fair cost comparisons
+Detects unusually expensive services
+Helps assess pricing efficiency
