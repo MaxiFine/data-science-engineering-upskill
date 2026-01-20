@@ -1,0 +1,4 @@
+airflow-impl/env/*
+airflow-impl/.env
+airflow-impl/airflow.cfg
+airflow-impl/logs/*
