@@ -71,7 +71,7 @@ def save_barplot(df, x_col, y_col, title, filename, rotate=False, top_n=None):
     if top_n:
         d = d.sort_values(y_col, ascending=False).head(top_n)
     plt.figure(figsize=(10, 6))
-    ax = sns.barplot(x=d.index if x_col == 'index' else d[x_col], y=d[y_col], palette='Blues_r')
+    ax = sns.barplot(x=d.index if x_col == 'index' else d[x_col], y=d[y_col], color='steelblue', legend=False)
     plt.title(title)
     plt.xlabel(x_col)
     plt.ylabel(y_col)
@@ -126,6 +126,67 @@ lines.append(f"![ASP vs Unit COGS]({os.path.relpath(figs['asp_vs_unitcogs'])})\n
 lines.append('\n## Segment & Discount\n')
 lines.append(f"![Gross Margin % by Segment]({os.path.relpath(figs['margin_by_segment'])})\n")
 lines.append(f"![Gross Margin % by Discount Band]({os.path.relpath(figs['discount_margin'])})\n")
+
+# Helper: minimal DataFrame to Markdown (no external deps)
+def df_to_markdown(df, index_name=None, float_cols=None, precision=2, max_rows=10):
+    d = df.copy()
+    if max_rows:
+        d = d.head(max_rows)
+    if float_cols is None:
+        float_cols = [c for c in d.columns if pd.api.types.is_float_dtype(d[c])]
+    for c in float_cols:
+        d[c] = d[c].map(lambda x: f"{x:.{precision}f}" if pd.notna(x) else "")
+    if index_name:
+        d = d.reset_index().rename(columns={d.columns[0]: index_name})
+    # Build markdown
+    cols = list(d.columns)
+    header = '| ' + ' | '.join(cols) + ' |\n'
+    sep = '| ' + ' | '.join(['---'] * len(cols)) + ' |\n'
+    body = ''
+    for _, row in d.iterrows():
+        body += '| ' + ' | '.join(str(row[c]) for c in cols) + ' |\n'
+    return header + sep + body
+
+# Tables: Top/Bottom summaries
+lines.append('\n## Top/Bottom Tables (CFO Summary)\n')
+
+# Top 10 products by Profit
+tp = by_product.sort_values('Profit', ascending=False).loc[:, ['Sales','COGS','Profit','Gross Margin %','Units','ASP','Unit COGS']]
+lines.append('### Top 10 Products by Profit\n')
+lines.append(df_to_markdown(tp, index_name='Product', float_cols=['Sales','COGS','Profit','Gross Margin %','ASP','Unit COGS'], precision=2, max_rows=10))
+
+# Bottom 10 products by Gross Margin %
+bp = by_product.sort_values('Gross Margin %', ascending=True).loc[:, ['Sales','COGS','Profit','Gross Margin %','Units','ASP','Unit COGS']]
+lines.append('### Bottom 10 Products by Gross Margin %\n')
+lines.append(df_to_markdown(bp, index_name='Product', float_cols=['Sales','COGS','Profit','Gross Margin %','ASP','Unit COGS'], precision=2, max_rows=10))
+
+# Countries by Profit and Margin
+tc = by_country.sort_values('Profit', ascending=False).loc[:, ['Sales','COGS','Profit','Gross Margin %']]
+lines.append('### Countries by Profit (Descending)\n')
+lines.append(df_to_markdown(tc, index_name='Country', float_cols=['Sales','COGS','Profit','Gross Margin %'], precision=2, max_rows=None))
+
+tm = by_country.sort_values('Gross Margin %', ascending=False).loc[:, ['Sales','COGS','Profit','Gross Margin %']]
+lines.append('### Countries by Gross Margin % (Descending)\n')
+lines.append(df_to_markdown(tm, index_name='Country', float_cols=['Sales','COGS','Profit','Gross Margin %'], precision=2, max_rows=None))
+
+# Loss-making combinations (Product × Segment × Country)
+psc = _df.groupby(['Product','Segment','Country']).agg(
+    Sales=('Net Sales','sum'),
+    COGS=('COGS','sum'),
+    Profit=('Gross Profit','sum'),
+    Units=('Units Sold','sum')
+)
+psc['Gross Margin %'] = (psc['Profit'] / psc['Sales']) * 100
+losses = psc[(psc['Profit'] < 0) | (psc['Gross Margin %'] < 0)].sort_values('Profit').reset_index()
+lines.append('### Loss-making Combinations (Worst 15 by Profit)\n')
+if not losses.empty:
+    lines.append(df_to_markdown(losses.loc[:, ['Product','Segment','Country','Sales','COGS','Profit','Gross Margin %','Units']],
+                                index_name=None,
+                                float_cols=['Sales','COGS','Profit','Gross Margin %'],
+                                precision=2,
+                                max_rows=15))
+else:
+    lines.append('None found.\n')
 
 with open(REPORT_PATH, 'w', encoding='utf-8') as f:
     f.write('\n'.join(lines))
