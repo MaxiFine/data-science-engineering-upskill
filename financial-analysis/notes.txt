@@ -1,0 +1,29 @@
+QUESTIONS TO ANSWER 
+What is this Data about
+
+I want you to make this analysis for me. So it's about financial data, and 
+
+I want to know what this data is about, 
+who will this data inform very well, like this data will be very important to inform what are the KPIs in the data, 
+who should I use as a good stakeholder to present the data to. So I want to use Amalitech as the major stakeholder dealing in the various products, products in this data. 
+
+So what are the call to action that should be given as a result of this data analysis? So I want to know the profit, sales, and some commodities across some countries, the various countries, the profit made in the various countries, and then the sales made in the various countries as well, 
+
+which good cost much to produce, 
+which good cost less to produce,
+which good has much profit on sales,
+which of the goods has much less on sales, 
+which one also has less on sales, 
+which good can I invest for much profit,
+which good can I invest to increase sales and profit, 
+which costs much to produce in the various countries. Yes.
+
+WHAT I WANT TO DO
+Create visuals for Profits
+Create visuals for sales
+Create visuals for Segments
+Create visuals for countries
+
+CTA for Amalitech
+
+Profit Percent on Investment/COG
