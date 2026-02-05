@@ -27,3 +27,44 @@ Create visuals for countries
 CTA for Amalitech
 
 Profit Percent on Investment/COG
+DEFINITIONS
+In business and finance, “margins” refer to how much a company keeps from its sales after covering different types of costs. They are key indicators of profitability and financial health.
+Here’s a clear breakdown:
+
+1. Profit Margin (General Idea)
+A margin is expressed as a percentage and shows how much profit a company makes for every dollar of revenue.
+Formula (general):
+Margin = (Profit / Revenue) × 100%
+
+
+2. Types of Margins
+a. Gross Margin
+Shows how much money is left after subtracting the direct costs of producing goods (like materials and labor).
+Gross Margin = (Revenue – Cost of Goods Sold) / Revenue × 100%
+
+Example:
+If a company sells a product for $100 and it costs $60 to produce, the gross margin is 40%.
+Gross margin tells you how efficiently a company produces or buys its products.
+
+b. Operating Margin
+Shows the profit left after paying for operating expenses like marketing, rent, salaries, and utilities—but before paying interest and taxes.
+Operating Margin = Operating Income / Revenue × 100%
+
+This margin reflects how well a company manages its day‑to‑day operations.
+
+c. Net Margin (Net Profit Margin)
+The bottom line.
+Shows how much profit remains after all expenses including taxes, interest, and other costs.
+Net Margin = Net Income / Revenue × 100%
+
+This tells you the company’s overall profitability.
+
+3. Why Margins Matter
+Businesses care about margins because they show:
+
+Profitability (how much money the business actually keeps)
+Efficiency (how well costs are controlled)
+Competitiveness (high-margin businesses can survive downturns better)
+Pricing power (strong brands often have higher margins)
+
+Investors use margins to compare companies in the same industry.
