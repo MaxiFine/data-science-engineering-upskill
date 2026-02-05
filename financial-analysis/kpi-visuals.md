@@ -30,3 +30,11 @@
 ![Gross Margin % by Segment](figures\margin_by_segment.png)
 
 ![Gross Margin % by Discount Band](figures\discount_margin.png)
+
+
+IMAGE
+![1770280874421](image/kpi-visuals/1770280874421.png)
+
+Total Profit = SUM('raw_financial_data_folder'[Profit])
+
+Total Sales = SUM('raw_financial_data_folder'[Sales])
